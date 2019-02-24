@@ -1,0 +1,15 @@
+baseURL = "https://ukyoweb.com"
+languageCode = "ja_JP"
+title = "ukyoweb"
+theme = "ghostwriter"
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+[Params]
+  intro = false
+  twitter = "https://twitter.com/ukyo"
+  github = "https://github.com/ukyo"
+
+[[menu.main]]
+    name = "Blog"
+    url = "/"
+    weight = 1
