@@ -1,4 +1,4 @@
-baseURL = "https://ukyoweb.com/"
+baseURL = "https://ukyo.dev/"
 languageCode = "ja_JP"
 title = "ukyoweb"
 theme = "ghostwriter"
