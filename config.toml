@@ -1,6 +1,6 @@
 baseURL = "https://ukyo.dev/"
-languageCode = "ja_JP"
-title = "ukyoweb"
+languageCode = "ja-JP"
+title = "ukyo.dev"
 theme = "ghostwriter"
 pygmentsUseClasses = true
 pygmentsCodeFences = true
