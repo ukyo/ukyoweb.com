@@ -5,7 +5,7 @@ date: 2019-04-25T14:55:54+09:00
 
 ちょっとだけ触りました。AssemblyScriptはTypeScriptの記法で書いたものがwasmに変換できるというもので、
 書き味はTypeScriptユーザーならば問題ないです。ただし、結構素直に変換されるので書き方によっては露骨に速度が変わります。
-ちょっと試した感じだと、以下の3点を注意して書くとわりと良いパフォーマンスを得られます。
+ちょっと試した感じだと、以下の3点を意識して書くとわりと良いパフォーマンスを得られました。
 
 ## @inline の検討
 
@@ -20,7 +20,7 @@ function square (x: i32): i32 {
 
 ## load, storeの最適化
 
-[公式wikiのMemory access セクション](https://github.com/AssemblyScript/assemblyscript/wiki/Built-ins#memory-access)に書いてあるのですが、第2引数に `constantOffset` というものを指定できます。あるポインタから定数分だけずらしてメモリアクセスしたい場合は使うと速くなります(`i32.const x`、`i32.add`分お得)。ちなみに、コンパイル時解決なので変数はだめです。
+[公式wikiのMemory access セクション](https://github.com/AssemblyScript/assemblyscript/wiki/Built-ins#memory-access)に書いてあるのですが、第2引数(`store` は第3引数)に `constantOffset` を指定できます。あるポインタから定数分だけずらしてメモリアクセスしたい場合は使うと速くなります(`i32.const x`、`i32.add`分お得)。ちなみに、コンパイル時解決なので変数はだめです。
 
 ```ts
 let r = load<u8>(p, 0);
