@@ -1,5 +1,5 @@
 ---
-title: "AssemblyScriptファーストインプレッション"
+title: "AssemblyScript 最適化tips"
 date: 2019-04-25T14:55:54+09:00
 ---
 
