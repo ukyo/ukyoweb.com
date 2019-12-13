@@ -3,7 +3,7 @@ title: "「よくわかるLaTeX小説」は文章系の同人誌全般に使え�
 date: 2019-12-14T04:10:51+09:00
 ---
 
-完全に遅れたのですが、[【推し祭り】技術書典で出会った良書 Advent Calendar 2019 \- Adventar](https://adventar.org/calendars/4224)の12日目の投稿です。一押しの技術書典で見つけた同人誌は[よくわかるLaTeX小説](http://p-act.sakura.ne.jp/PARALLEL_ACT/LaTeX-Dojin/)です。
+完全に遅れたのですが、[【推し祭り】技術書典で出会った良書 Advent Calendar 2019 \- Adventar](https://adventar.org/calendars/4224)の12日目の投稿です。推しの技術書典で見つけた同人誌は[よくわかるLaTeX小説](http://p-act.sakura.ne.jp/PARALLEL_ACT/LaTeX-Dojin/)です。
 たしか技術書典2で買ったはず。
 
 コンセプトとしてはLaTeXでの小説組版とか周辺のテクニックを紹介する本です。
