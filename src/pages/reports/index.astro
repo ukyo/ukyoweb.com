@@ -1,0 +1,60 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  formatDate,
+  formatDateRange,
+  getPostExcerpt,
+  getReportUrl,
+  sortReports
+} from "../../lib/posts";
+import { SITE } from "../../site.config";
+
+const reports = sortReports(
+  await getCollection("reports", ({ data }) => data.draft !== true)
+);
+const description = "AI-generated weekly research reports on llama.cpp updates.";
+---
+
+<BaseLayout
+  title="Reports"
+  description={description}
+  canonicalPath="/reports/"
+  rssPath="/reports/rss.xml"
+  rssTitle={`${SITE.title} Reports`}
+>
+  <section class="post-index" aria-label="AI research reports">
+    <div class="section-heading">
+      <h2>Reports</h2>
+      <span>{reports.length} reports</span>
+    </div>
+
+    {
+      reports.length > 0 ? (
+        <ol class="post-list">
+          {reports.map((report) => (
+            <li>
+              <a class="post-list-link" href={getReportUrl(report)}>
+                <span class="post-list-meta">
+                  <time datetime={report.data.pubDate.toISOString()}>
+                    {formatDate(report.data.pubDate)}
+                  </time>
+                  <span>
+                    {formatDateRange(report.data.periodStart, report.data.periodEnd)}
+                  </span>
+                </span>
+                <span>
+                  <span class="report-kicker">{report.data.topic}</span>
+                  <strong>{report.data.title}</strong>
+                  <em>{report.data.description ?? getPostExcerpt(report.body)}</em>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p class="empty-state">No reports published yet.</p>
+      )
+    }
+  </section>
+</BaseLayout>

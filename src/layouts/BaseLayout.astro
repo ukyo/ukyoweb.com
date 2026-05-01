@@ -8,6 +8,8 @@ type Props = {
   canonicalPath?: string;
   type?: "website" | "article";
   pubDate?: Date;
+  rssPath?: string;
+  rssTitle?: string;
 };
 
 const {
@@ -15,13 +17,16 @@ const {
   description = SITE.description,
   canonicalPath = Astro.url.pathname,
   type = "website",
-  pubDate
+  pubDate,
+  rssPath,
+  rssTitle
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL(SITE.url);
 const pageTitle = title === SITE.title ? SITE.title : `${title} | ${SITE.title}`;
 const canonicalUrl = new URL(canonicalPath, siteUrl);
 const rssUrl = new URL("/rss.xml", siteUrl);
+const alternateRssUrl = rssPath ? new URL(rssPath, siteUrl) : undefined;
 ---
 
 <!doctype html>
@@ -39,6 +44,16 @@ const rssUrl = new URL("/rss.xml", siteUrl);
       title={SITE.title}
       href={rssUrl.href}
     />
+    {
+      alternateRssUrl && (
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={rssTitle ?? pageTitle}
+          href={alternateRssUrl.href}
+        />
+      )
+    }
     <meta property="og:site_name" content={SITE.title} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -56,6 +71,7 @@ const rssUrl = new URL("/rss.xml", siteUrl);
           <a href="/" aria-label="ukyo.dev home">ukyo.dev</a>
         </h1>
         <nav class="site-nav" aria-label="Primary">
+          <a href="/reports/">Reports</a>
           <a href={SITE.github} rel="me">GitHub</a>
           <a href={SITE.twitter} rel="me">Twitter</a>
           <a href="/rss.xml">RSS</a>

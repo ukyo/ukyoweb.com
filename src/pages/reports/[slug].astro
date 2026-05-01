@@ -1,0 +1,69 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  formatDate,
+  formatDateRange,
+  getPostExcerpt,
+  getReportUrl,
+  sortReports
+} from "../../lib/posts";
+import { SITE } from "../../site.config";
+
+export async function getStaticPaths() {
+  const reports = sortReports(
+    await getCollection("reports", ({ data }) => data.draft !== true)
+  );
+
+  return reports.map((report) => ({
+    params: { slug: report.data.slug ?? report.id },
+    props: { report }
+  }));
+}
+
+const { report } = Astro.props;
+const { Content } = await render(report);
+const description = report.data.description ?? getPostExcerpt(report.body, 160);
+const period = formatDateRange(report.data.periodStart, report.data.periodEnd);
+---
+
+<BaseLayout
+  title={report.data.title}
+  description={description}
+  canonicalPath={getReportUrl(report)}
+  type="article"
+  pubDate={report.data.pubDate}
+  rssPath="/reports/rss.xml"
+  rssTitle={`${SITE.title} Reports`}
+>
+  <article class="post">
+    <header class="post-header">
+      <a class="back-link" href="/reports/">Reports</a>
+      <p class="report-kicker">{report.data.topic}</p>
+      <h1>{report.data.title}</h1>
+      <div class="post-meta">
+        <time datetime={report.data.pubDate.toISOString()}>
+          {formatDate(report.data.pubDate)}
+        </time>
+        <span>{period}</span>
+      </div>
+    </header>
+    <div class="post-content">
+      <Content />
+    </div>
+    <aside class="report-sources" aria-labelledby="report-sources-heading">
+      <h2 id="report-sources-heading">Sources</h2>
+      <ul>
+        {
+          report.data.sources.map((source) => (
+            <li>
+              <a href={source.url} rel="noreferrer">
+                {source.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </aside>
+  </article>
+</BaseLayout>
