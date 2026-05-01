@@ -1,6 +1,6 @@
 # ukyo.dev
 
-Astro 6 で作っている `ukyo.dev` の静的サイトです。ブログ記事は Markdown で管理し、Astro の content collection として読み込まれます。Netlify では Node.js 22 で build し、生成された `dist` を公開します。
+Astro 6 で作っている `ukyo.dev` の静的サイトです。ブログ記事は Markdown で管理し、Astro の content collection として読み込まれます。GitHub Pages では GitHub Actions が Node.js 22 で build し、生成された `dist` を公開します。
 
 ## 初回セットアップ
 
@@ -107,9 +107,11 @@ draft: false
 - 外部リンク、内部リンク、画像パスが切れていない。
 - `npm run build` が成功する。
 
-## Netlify で公開する
+## GitHub Pages で公開する
 
-変更を deploy 対象ブランチに push すると、Netlify が build を実行します。Netlify は生成された `dist` を公開します。
+`master` ブランチに push すると、GitHub Actions の `Deploy to GitHub Pages` workflow が build と deploy を実行します。workflow は生成された `dist` を GitHub Pages に公開します。
+
+GitHub の repository settings では、Pages の Source を `GitHub Actions` に設定します。Custom domain は `ukyo.dev` を使います。
 
 公開前にローカルで必ず次を実行します。
 

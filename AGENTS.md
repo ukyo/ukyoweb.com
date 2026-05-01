@@ -6,7 +6,7 @@ This repository is the Astro static site for `ukyo.dev`.
 
 - Astro 6 with TypeScript and content collections.
 - Blog posts live in Markdown under `src/content/blog`.
-- Netlify builds the site with Node.js 22 and publishes `dist`.
+- GitHub Actions builds the site with Node.js 22 and publishes `dist` to GitHub Pages.
 
 ## Common Commands
 
