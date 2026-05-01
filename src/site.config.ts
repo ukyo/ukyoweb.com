@@ -1,6 +1,6 @@
 export const SITE = {
   title: "ukyo.dev",
-  description: "WebAssembly, frontend tooling, and software notes by ukyo.",
+  description: "Technical notes on software, web development, and programming.",
   author: "ukyo",
   url: "https://ukyo.dev",
   github: "https://github.com/ukyo",
