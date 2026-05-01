@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate, getPostExcerpt, getPostUrl, sortPosts } from "../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = sortPosts(
+    await getCollection("blog", ({ data }) => data.draft !== true)
+  );
+
+  return posts.map((post) => ({
+    params: { slug: post.data.slug ?? post.id },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const description = post.data.description ?? getPostExcerpt(post.body, 160);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={description}
+  canonicalPath={getPostUrl(post)}
+  type="article"
+  pubDate={post.data.pubDate}
+>
+  <article class="post">
+    <header class="post-header">
+      <a class="back-link" href="/">Articles</a>
+      <h1>{post.data.title}</h1>
+      <time datetime={post.data.pubDate.toISOString()}>
+        {formatDate(post.data.pubDate)}
+      </time>
+    </header>
+    <div class="post-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
